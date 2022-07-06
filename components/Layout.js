@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
-      <Container>{children}</Container>
+      <Container style={{ marginTop: "5rem" }}>{children}</Container>
     </>
   );
 };
