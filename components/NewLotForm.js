@@ -1,33 +1,58 @@
 import Router from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "semantic-ui-react";
 
 const NewLotForm = () => {
-  //   const [formSubSuccess, setFormSubSuccess] = useState(null);
-  //   const router = Router;
+  const [parts, setParts] = useState([]);
+  const [formSubSuccess, setFormSubSuccess] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const router = Router;
+
+  //grab parts list, put in state
+  useEffect(() => {
+    setLoading(true);
+    fetch("https://scrap-tracker.herokuapp.com/api/part")
+      .then((res) => res.json())
+      .then((data) => {
+        setParts(data.data);
+        setLoading(false);
+      });
+  }, []);
 
   const lookUpPrefix = (e) => {
     e.preventDefault();
   };
 
   const handleNewLotSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const data = {
-    //     };
-    //     const JSONdata = JSON.stringify(data);
-    //     console.log(JSONdata);
-    //     const endpoint = "https://scrap-tracker.herokuapp.com/api/lot";
-    //     const options = {
-    //       method: "Post",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSONdata,
-    //     };
-    //     const response = await fetch(endpoint, options);
-    //     const result = await response.json();
-    //     setFormSubSuccess(result);
-    //     router.push("/");
+    e.preventDefault();
+
+    const data = {
+      num: e.target[0].value,
+      partName: e.target[1].value,
+      singlePartWeight: e.target[2].value,
+      totalCoilWeight: e.target[3].value,
+      lotLoss: e.target[4].value,
+      eXt: parseInt(
+        ((e.target[3].value - e.target[4].value) / e.target[2].value) * 1000
+      ),
+    };
+
+    const JSONdata = JSON.stringify(data);
+
+    console.log(JSONdata);
+
+    const endpoint = "https://scrap-tracker.herokuapp.com/api/lot";
+    const options = {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSONdata,
+    };
+    const response = await fetch(endpoint, options);
+    const result = await response.json();
+    setFormSubSuccess(result);
+    router.push("/");
   };
 
   return (
