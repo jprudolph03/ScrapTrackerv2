@@ -7,7 +7,7 @@ const ActiveLotTable = () => {
       <div>
         <Header as="h1">Current Lots</Header>
       </div>
-      <Table basic>
+      <Table unstackable>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Lot #</Table.HeaderCell>
