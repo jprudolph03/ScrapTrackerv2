@@ -6,6 +6,7 @@ const NewLotForm = () => {
   const [parts, setParts] = useState([]);
   const [formSubSuccess, setFormSubSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [selectedPart, setSelectedPart] = useState(null);
   const router = Router;
 
   //grab parts list, put in state
@@ -19,8 +20,12 @@ const NewLotForm = () => {
       });
   }, []);
 
+  //after finding the parts, find part, set part
   const lookUpPrefix = (e) => {
     e.preventDefault();
+    let lotPFix = e.target.value.slice(0, 2);
+    const lookup = parts.find((el) => el.lotPrefix == lotPFix);
+    setSelectedPart(lookup);
   };
 
   const handleNewLotSubmit = async (e) => {
@@ -63,7 +68,11 @@ const NewLotForm = () => {
       </Form.Field>
       <Form.Field>
         <label>Part Name</label>
-        <input placeholder="D6" type="number" step={"0.01"} />
+        <input
+          value={selectedPart ? selectedPart.name : "null"}
+          type="text"
+          step={"0.01"}
+        />
       </Form.Field>
       <Form.Field>
         <label>Single Part Weight</label>
@@ -75,7 +84,11 @@ const NewLotForm = () => {
       </Form.Field>
       <Form.Field>
         <label>Standard Loss</label>
-        <input placeholder="Standard Loss" type="number" step={"0.01"} />
+        <input
+          value={selectedPart ? selectedPart.STDLoss : 0}
+          type="number"
+          step={"0.01"}
+        />
       </Form.Field>
       <Button type="submit" color="green">
         Submit
