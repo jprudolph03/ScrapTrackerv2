@@ -5,6 +5,7 @@ const ActiveLotTable = () => {
   const [activeLots, setActiveLots] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  //find all lots ++later change to only active lots++
   useEffect(() => {
     setIsLoading(true);
     fetch("https://scrap-tracker.herokuapp.com/api/lot")
@@ -14,6 +15,83 @@ const ActiveLotTable = () => {
         setIsLoading(false);
       });
   }, []);
+
+  const gTable = activeLots?.map((lot) => (
+    <Table.Row key={lot._id}>
+      <Table.Cell>
+        {lot.num} - {lot.partName}
+      </Table.Cell>
+      <Table.Cell>{lot.eXt}</Table.Cell>
+      <Table.Cell>
+        {parseInt(
+          lot.ForgingCounterTotal -
+            (lot.ForgingScrap / lot.singlePartWeight) * 1000
+        )}
+        <span>
+          {parseFloat(
+            ((lot.ForgingCounterTotal -
+              (lot.ForgingScrap / lot.singlePartWeight) * 1000) /
+              lot.eXt) *
+              100 -
+              100,
+            2
+          ).toFixed(2)}{" "}
+          %
+        </span>
+      </Table.Cell>
+      <Table.Cell>
+        {parseInt(
+          lot.PressingCounterTotal -
+            (lot.PressingScrap / lot.singlePartWeight) * 1000
+        )}
+        <span>
+          {parseFloat(
+            ((lot.PressingCounterTotal -
+              (lot.PressingScrap / lot.singlePartWeight) * 1000) /
+              lot.eXt) *
+              100 -
+              100,
+            2
+          ).toFixed(2)}{" "}
+          %
+        </span>
+      </Table.Cell>
+      <Table.Cell>
+        {parseInt(
+          lot.TappingCounterTotal -
+            (lot.TappingScrap / lot.singlePartWeight) * 1000
+        )}
+        <span>
+          {parseFloat(
+            ((lot.TappingCounterTotal -
+              (lot.TappingScrap / lot.singlePartWeight) * 1000) /
+              lot.eXt) *
+              100 -
+              100
+          ).toFixed(2)}{" "}
+          %
+        </span>
+      </Table.Cell>
+      <Table.Cell>
+        {lot.VSPackCounterTotal}
+        <span>
+          {parseFloat(
+            ((lot.VSPackCounterTotal -
+              (lot.VSPackScrap / lot.singlePartWeight) * 1000) /
+              lot.eXt) *
+              100 -
+              100
+          ).toFixed(2)}{" "}
+          %
+        </span>
+      </Table.Cell>
+      <Table.Cell>
+        <Icon name="eye" color="blue" bordered size="large"></Icon>
+        <Icon name="edit" color="green" bordered size="large"></Icon>
+        <Icon name="file outline" color="orange" bordered size="large"></Icon>
+      </Table.Cell>
+    </Table.Row>
+  ));
 
   return (
     <div style={{ marginTop: "5em" }}>
@@ -32,21 +110,7 @@ const ActiveLotTable = () => {
             <Table.HeaderCell>Options</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell>123456</Table.Cell>
-            <Table.Cell>123456</Table.Cell>
-            <Table.Cell>123456</Table.Cell>
-            <Table.Cell>123456</Table.Cell>
-            <Table.Cell>123456</Table.Cell>
-            <Table.Cell>123456</Table.Cell>
-            <Table.Cell>
-              <Icon bordered name="eye" size="large" />
-              <Icon bordered name="edit" size="large" />
-              <Icon bordered name="archive" size="large" />
-            </Table.Cell>
-          </Table.Row>
-        </Table.Body>
+        <Table.Body>{gTable}</Table.Body>
       </Table>
     </div>
   );
