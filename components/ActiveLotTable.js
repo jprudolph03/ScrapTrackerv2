@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Header, Icon } from "semantic-ui-react";
 
 const ActiveLotTable = () => {
+  const [activeLots, setActiveLots] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch("https://scrap-tracker.herokuapp.com/api/lot")
+      .then((res) => res.json())
+      .then((data) => {
+        setActiveLots(data.data);
+        setIsLoading(false);
+      });
+  }, []);
+
   return (
     <div style={{ marginTop: "5em" }}>
       <div>
