@@ -1,10 +1,40 @@
-import React from "react";
+import Router from "next/router";
+import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 
 const NewPartForm = () => {
-  const handleNewPartSubmit = (e) => {
+  const [formSubSuccess, setFormSubSuccess] = useState(null);
+  const router = Router;
+
+  const handleNewPartSubmit = async (e) => {
     e.preventDefault();
+
+    const data = {
+      name: e.target[0].value,
+      lotPrefix: e.target[1].value,
+      STDLoss: e.target[2].value,
+    };
+
+    const JSONdata = JSON.stringify(data);
+    console.log(JSONdata);
+
+    const endpoint = "https://scrap-tracker.herokuapp.com/api/part";
+
+    const options = {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSONdata,
+    };
+
+    const response = await fetch(endpoint, options);
+
+    const result = await response.json();
+    setFormSubSuccess(result);
+    router.push("/");
   };
+
   return (
     <Form onSubmit={handleNewPartSubmit}>
       <Form.Field>
