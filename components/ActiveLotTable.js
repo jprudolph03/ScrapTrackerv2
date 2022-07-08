@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Header, Icon } from "semantic-ui-react";
+import { Table, Header, Icon, Step, StepContent } from "semantic-ui-react";
 
 const ActiveLotTable = () => {
   const [activeLots, setActiveLots] = useState([]);
@@ -27,7 +27,8 @@ const ActiveLotTable = () => {
           lot.ForgingCounterTotal -
             (lot.ForgingScrap / lot.singlePartWeight) * 1000
         )}
-        <span>
+        {/* <span>
+          {" "}
           {parseFloat(
             ((lot.ForgingCounterTotal -
               (lot.ForgingScrap / lot.singlePartWeight) * 1000) /
@@ -37,14 +38,14 @@ const ActiveLotTable = () => {
             2
           ).toFixed(2)}{" "}
           %
-        </span>
+        </span> */}
       </Table.Cell>
       <Table.Cell>
         {parseInt(
           lot.PressingCounterTotal -
             (lot.PressingScrap / lot.singlePartWeight) * 1000
         )}
-        <span>
+        {/* <span>
           {parseFloat(
             ((lot.PressingCounterTotal -
               (lot.PressingScrap / lot.singlePartWeight) * 1000) /
@@ -54,14 +55,14 @@ const ActiveLotTable = () => {
             2
           ).toFixed(2)}{" "}
           %
-        </span>
+        </span> */}
       </Table.Cell>
       <Table.Cell>
         {parseInt(
           lot.TappingCounterTotal -
             (lot.TappingScrap / lot.singlePartWeight) * 1000
         )}
-        <span>
+        {/* <span>
           {parseFloat(
             ((lot.TappingCounterTotal -
               (lot.TappingScrap / lot.singlePartWeight) * 1000) /
@@ -70,11 +71,11 @@ const ActiveLotTable = () => {
               100
           ).toFixed(2)}{" "}
           %
-        </span>
+        </span> */}
       </Table.Cell>
       <Table.Cell>
         {lot.VSPackCounterTotal}
-        <span>
+        {/* <span>
           {parseFloat(
             ((lot.VSPackCounterTotal -
               (lot.VSPackScrap / lot.singlePartWeight) * 1000) /
@@ -83,7 +84,7 @@ const ActiveLotTable = () => {
               100
           ).toFixed(2)}{" "}
           %
-        </span>
+        </span> */}
       </Table.Cell>
       <Table.Cell>
         <Icon name="eye" color="blue" bordered size="large"></Icon>
