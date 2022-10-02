@@ -53,18 +53,26 @@ const Navbar = () => {
             </div>
             <i aria-hidden="true" className="dropdown icon"></i>
             <div className="menu transition visible">
-              <div aria-roledescription="option" className="item">
-                Forging
-              </div>
-              <div aria-roledescription="option" className="item">
-                Pressing
-              </div>
-              <div aria-roledescription="option" className="item">
-                Tapping
-              </div>
-              <div aria-roledescription="option" className="item">
-                VS / Pack
-              </div>
+              <Link href="/forgingScrap">
+                <div aria-roledescription="option" className="item">
+                  Forging Scrap Reporting
+                </div>
+              </Link>
+              <Link href="/pressingScrap">
+                <div aria-roledescription="option" className="item">
+                  Pressing Scrap Reporting
+                </div>
+              </Link>
+              <Link href="/tappingScrap">
+                <div aria-roledescription="option" className="item">
+                  Tapping Scrap Reporting
+                </div>
+              </Link>
+              <Link href="/vsPackScrap">
+                <div aria-roledescription="option" className="item">
+                  VS/Pack Scrap Reporting
+                </div>
+              </Link>
             </div>
           </div>
         </div>

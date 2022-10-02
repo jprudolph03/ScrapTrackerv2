@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { Table, Header, Icon, Step, StepContent } from "semantic-ui-react";
+
+// https://scrap-tracker.herokuapp.com/api/lot/lotDetails/${lot._id}
+
+const ROUTE_LOT_ID = "lotDetails/[id]";
+const ROUTE_EDIT_LOT = "editLot/[id]";
 
 const ActiveLotTable = () => {
   const [activeLots, setActiveLots] = useState([]);
@@ -16,10 +22,16 @@ const ActiveLotTable = () => {
       });
   }, []);
 
+  const handleDeleteLot = () => {
+    console.log(id);
+  };
+
   const gTable = activeLots?.map((lot) => (
     <Table.Row key={lot._id}>
       <Table.Cell>
-        {lot.num} - {lot.partName}
+        <a href={`https://scrap-tracker.herokuapp.com/api/lot/${lot._id}`}>
+          {lot.num} - {lot.partName}
+        </a>
       </Table.Cell>
       <Table.Cell>{lot.eXt}</Table.Cell>
       <Table.Cell>
@@ -28,7 +40,7 @@ const ActiveLotTable = () => {
             (lot.ForgingScrap / lot.singlePartWeight) * 1000
         )}
         {/* <span>
-          {" "}
+          ({" "}
           {parseFloat(
             ((lot.ForgingCounterTotal -
               (lot.ForgingScrap / lot.singlePartWeight) * 1000) /
@@ -37,7 +49,7 @@ const ActiveLotTable = () => {
               100,
             2
           ).toFixed(2)}{" "}
-          %
+          % )
         </span> */}
       </Table.Cell>
       <Table.Cell>
@@ -87,9 +99,31 @@ const ActiveLotTable = () => {
         </span> */}
       </Table.Cell>
       <Table.Cell>
-        <Icon name="eye" color="blue" bordered size="large"></Icon>
-        <Icon name="edit" color="green" bordered size="large"></Icon>
+        <Link
+          href={{
+            pathname: ROUTE_LOT_ID,
+            query: { id: lot._id },
+          }}
+        >
+          <Icon name="eye" color="blue" bordered size="large"></Icon>
+        </Link>
+        <Link
+          href={{
+            pathname: ROUTE_EDIT_LOT,
+            query: { id: lot._id },
+          }}
+        >
+          <Icon name="edit" color="green" bordered size="large"></Icon>
+        </Link>
         <Icon name="file outline" color="orange" bordered size="large"></Icon>
+        <Link
+          href={{
+            pathname: `https://scrap-tracker.herokuapp.com/api/lot/${lot._id}`,
+            method: "DELETE",
+          }}
+        >
+          <Icon name="delete" color="red" bordered size="large"></Icon>
+        </Link>
       </Table.Cell>
     </Table.Row>
   ));

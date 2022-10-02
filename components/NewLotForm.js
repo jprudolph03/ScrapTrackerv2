@@ -44,7 +44,7 @@ const NewLotForm = () => {
 
     const JSONdata = JSON.stringify(data);
 
-    console.log(JSONdata);
+    // console.log(JSONdata);
 
     const endpoint = "https://scrap-tracker.herokuapp.com/api/lot";
     const options = {
