@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Icon, Label, Menu, Table, Header } from "semantic-ui-react";
+import TestBarEx from "../../components/TestBarEx";
 
 const DetailID = () => {
   const router = useRouter();
@@ -121,6 +122,7 @@ const DetailID = () => {
         </Table.Header>
         <Table.Body>{infoTable}</Table.Body>
       </Table>
+      <TestBarEx />
     </div>
   );
 };

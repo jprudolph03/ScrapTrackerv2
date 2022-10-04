@@ -22,15 +22,15 @@ const ActiveLotTable = () => {
       });
   }, []);
 
-  const handleDeleteLot = () => {
-    console.log(id);
+  const handleDeleteLot = ({ id }) => {
+    console.log(id, "blah blah");
   };
 
   const gTable = activeLots?.map((lot) => (
     <Table.Row key={lot._id}>
       <Table.Cell>
         <a href={`https://scrap-tracker.herokuapp.com/api/lot/${lot._id}`}>
-          {lot.num} - {lot.partName}
+          {lot.num} | {lot.partName}
         </a>
       </Table.Cell>
       <Table.Cell>{lot.eXt}</Table.Cell>
@@ -118,11 +118,17 @@ const ActiveLotTable = () => {
         <Icon name="file outline" color="orange" bordered size="large"></Icon>
         <Link
           href={{
-            pathname: `https://scrap-tracker.herokuapp.com/api/lot/${lot._id}`,
             method: "DELETE",
+            query: { id: lot._id },
           }}
         >
-          <Icon name="delete" color="red" bordered size="large"></Icon>
+          <Icon
+            name="delete"
+            onClick={handleDeleteLot}
+            color="red"
+            bordered
+            size="large"
+          ></Icon>
         </Link>
       </Table.Cell>
     </Table.Row>
